@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "8081:80"  # Map frontend container's port 80 to localhost:8081
+    networks:
+      - app-network
+
+  redis:
+    image: "redis:alpine"  # Use a lightweight Redis image
+    container_name: redis
+    ports:
+      - "6379:6379"  # Expose Redis default port
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
