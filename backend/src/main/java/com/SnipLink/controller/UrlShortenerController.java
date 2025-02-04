@@ -25,7 +25,9 @@ public class UrlShortenerController {
     private UrlShortenerService urlShortenerService;
 
     // POST request to shorten the URL
-    @CrossOrigin(origins = "http://localhost:8081")  
+    @CrossOrigin(origins = "http://localhost:8081")
+    //@CrossOrigin(origins = "http://localhost:3000") 
+    //local
     @PostMapping("/api/v1/")
     public ResponseEntity<UrlResponse> shortenUrl(@Valid @RequestBody UrlRequest urlRequest) {
         String longUrl = urlRequest.getUrl();
